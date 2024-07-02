@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Área de Segurança</title>
+
+  <link rel="stylesheet" href="style.css">
+  <script LANGUAGE="JavaScript"> 
+
+function Login () {
+ 
+    var user=document.frm_login.txt_usuario.value;
+    var email=document.frm_login.txt_usuario.value;
+    var pass=document.frm_login.txt_senha.value;
+ 
+    if((user=="fatec"  || email=="fatec@fatec") && pass=="123a") {
+        alert("Conta Validada com Sucesso!!!");
+        window.location="http://ww.uol.com.br";
+    }
+    else{
+        alert("Conta Inválida!!!");
+        document.frm_login.txt_usuario.value="";
+        document.frm_login.txt_senha.value="";
+        document.frm_login.txt_usuario.focus();
+    }
+}
+  </script>
+
+</head>
+
+<body>
+    <div class="esquerda_superior">
+        <h2>Teste</h2>
+    </div>
+
+    <div class="direita_superior">
+        <h2>Teste</h2>
+    </div>
+
+    <div class="direita_inferior">
+        <h2>Teste</h2>
+    </div>
+
+    <div class="esquerda_inferior">
+        <h2>Teste</h2>
+    </div>
+    
+    <h1>Área de Segurança</h1>
+ 
+
+    <div class="centro">
+
+            <form name="frm_login"> 
+            
+                <h2>Identificação da Conta</h2>
+        
+                <label for="usuarioEmail">Usuário ou E-mail:</label>
+                <input type="text" id="caixa" name="txt_usuario" size="40" required>
+            
+                <label for="senha">Senha:</label>
+                <input type="password" id="caixa" name="txt_senha" size="40" required>
+            
+                <div class="acoes">
+                    <button type="submit" id="botao" onclick="Login()">Entrar</button>
+                    <button type="button" id="botao" class="limpar">Limpar</button>
+                </div>
+            
+            </form>
+    </div>
+
+    <center>
+        <img src="dall-e-2-monalisa.webp" alt="">
+    </center>
+
+    </body>
+</html>

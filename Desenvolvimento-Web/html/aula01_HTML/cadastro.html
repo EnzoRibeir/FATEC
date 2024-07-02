@@ -1,0 +1,58 @@
+<html>
+<!--Entrada de dados via teclado e mouse -->
+<head>
+	<title>Aula01 - Ling.HTML</title>
+</head>
+<body bgcolor='MediumSlateBlue' text='white'>
+<form name='frm_cadastro'>
+<center>
+	<h1><b><u><label>CADASTRO DE CLIENTES</label></u></h1>
+</center>
+<p>
+<fieldset>
+	<legend>DADOS PESSOAIS.</legend>
+	<label>Nome dos Cliente:</label>
+	<input type='text' value="" size='60' maxlength='60' required='yes'><p>
+	<label>Digite uma senha </label->
+	<input type='password' value=""size='10' maxlength='10'>&nbsp;&nbsp;&nbsp;
+	<label>Selecione sua idade</label>
+	<input type='number' min='1' max='100'>&nbsp;&nbsp;&nbsp;
+	<label>Selecione o sexo</label>
+	<input type='radio' name="sexo">Masculino
+	<input type='radio' name="sexo">Feminino
+	<p>
+	<label>Selecione o curso do seu interesse</label>
+	<ul>
+		<li><input type='checkbox' name='curso'>EXCEL VBA</li>
+		<li><input type='checkbox' name='curso'>PYTHON</li>
+		<li><input type='checkbox' name='curso'>JAVA</li>
+		<li><input type='checkbox' name='curso'>JAVA SCRIPT</li>
+	</ul>
+	<label>Selecione sua cidade</label>
+		<select name='cidades'>
+			<option value='SA'>Santo André</option>
+			<option value='SB'>São Bernado</option>
+			<option value='SC'>São Caetano</option>
+			<option value='MA'>Mauá</option>
+		</select>
+	<br>
+	<label>Observações gerais</label>
+	<br>
+	<textarea cols='50' rows='8'>Digite suas observações</textarea>
+</fieldset>
+
+<fieldset>
+	<legend>Selecione uma cor para o plano de fundo</legend>
+	<input type='radio' name='cor' onclick="document.bgColor='red'">Vermelho &nbsp;
+	<input type='radio' name='cor' onclick="document.bgColor='purple'">roxo &nbsp;
+	<input type='radio' name='cor' onclick="document.bgColor='green'">verde &nbsp;
+	<input type='radio' name='cor' onclick="document.bgColor='black'">preto &nbsp;
+</fieldset>
+<p>
+<center>
+<input type='submit' value='Enviar Dados'>&nbsp;&nbsp;&nbsp;
+<input type='reset' value='Remover Dados'>&nbsp;&nbsp;&nbsp;
+
+</form>
+</body>
+</html>
