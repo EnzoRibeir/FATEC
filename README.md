@@ -1,6 +1,6 @@
 # 📚 Repositório da FATEC - Aulas, Exercícios e Mais!
 
-![Bem-vindo](https://media.giphy.com/media/3o7TKtnuHOHHUjR38Y/giphy.gif)
+(https://media.giphy.com/media/3o7TKtnuHOHHUjR38Y/giphy.gif)
 
 ## Sobre Este Repositório
 Bem-vindo ao meu repositório de estudos da FATEC! 
