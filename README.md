@@ -4,5 +4,5 @@
 
 ## Sobre Este Repositório
 Bem-vindo ao meu repositório de estudos da FATEC! 
-Esse repositório foi criado para documentar todo meu processo de aprendizagem no meu curso de Desenvilvimento de Software Multiplataforma 
+Esse repositório foi criado para documentar todo meu processo de aprendizagem no meu curso de Desenvolvimento de Software Multiplataforma 
 
