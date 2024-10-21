@@ -1,0 +1,9 @@
+Instruções DML (Data Manipulation Language) em SQL são usadas para selecionar e manipular dados dentro de tabelas ou views. 
+
+As principais instruções DML são:
+SELECT: Recupera dados de uma ou mais tabelas.
+INSERT: Adiciona novos registros às tabelas.
+UPDATE: Modifica registros existentes.
+DELETE: Remove registros das tabelas.
+
+Também é possível criar um grupo a parte para o comando SELECT usando DQL.
