@@ -1,4 +1,15 @@
-## Resultado do Código:
+# Explicação de Tendência:
+##### Aprendizado Supervisionado:
+
+O modelo aprendeu os padrões olhando para o histórico de vendas do ano passado. Ou seja, ele treinou usando dados onde a resposta certa já era conhecida.
+Usei os Meses (variável/eixo X) para prever as Vendas (variável/eixo Y).
+
+##### Análise de Tendência:
+
+A análise indica uma clara tendência de crescimento para todos os produtos da loja.
+Essa conclusão é confirmada por dois fatores principais: a inclinação da reta é maior que "0" e observamos que o volume de vendas projetado aumenta progressivamente de um trimestre para o outro.
+
+# Resultado do Código:
 
 === RESULTADOS DA AVALIAÇÃO DE ML (REGRESSÃO LINEAR) ===
 
