@@ -13,7 +13,7 @@ Essa conclusão é confirmada por dois fatores principais: a inclinação da ret
 
 === RESULTADOS DA AVALIAÇÃO DE ML (REGRESSÃO LINEAR) ===
 
-📌 PRODUTO: Tinta Acrílica \n
+📌 PRODUTO: Tinta Acrílica <br>
 Equação da Reta: y = 19.09x + 89.24
 R² (Confiabilidade): 0.7985
 Previsão Futura: Mês 13: 337 | Mês 14: 357 | Mês 15: 376
