@@ -1,64 +1,82 @@
-const lista_de_produtos = [
-    { nome: "Tinta Acrílica", vendas_reais: [120, 150, 130, 180, 200, 210, 190, 220, 210, 250, 300, 400] },
-    { nome: "Tinta Esmalte",  vendas_reais: [80, 100, 90, 120, 130, 140, 150, 160, 170, 180, 190, 200] },
-    { nome: "Tinta Látex",    vendas_reais: [200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 300, 310] },
-    { nome: "Tinta Spray",    vendas_reais: [60, 70, 65, 80, 85, 90, 95, 100, 105, 110, 120, 130] }
+// 1. DADOS DA AVALIAÇÃO ORGANIZADOS
+// O eixo X (meses) será gerado automaticamente pelo tamanho do array Y (vendas)
+const dadosVendas = [
+    { produto: "Tinta Acrílica", y: [120, 150, 130, 180, 200, 210, 190, 220, 210, 250, 300, 400] },
+    { produto: "Tinta Esmalte", y: [80, 100, 90, 120, 130, 140, 150, 160, 170, 180, 190, 200] },
+    { produto: "Tinta Látex", y: [200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 300, 310] },
+    { produto: "Tinta Spray", y: [60, 70, 65, 80, 85, 90, 95, 100, 105, 110, 120, 130] },
+    { produto: "Tinta PVA", y: [150, 160] } // Só tem os meses 1 e 2
 ];
 
-const lista_de_meses = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-const quantidade_de_meses = lista_de_meses.length;
+console.log("=== RESULTADOS DA AVALIAÇÃO DE ML (REGRESSÃO LINEAR) ===\n");
 
-console.log("# Relatório de Previsão por Produto\n");
-console.log("| Produto | Mês | Vendas Reais | Vendas Previstas (ŷ) | R² |");
-console.log("| :--- | :---: | :---: | :---: | :---: |");
-
-for (let p = 0; p < lista_de_produtos.length; p++) {
-    let produto_atual = lista_de_produtos[p];
-    let vendas_do_produto = produto_atual.vendas_reais;
-
-    let soma_x = 0, soma_y = 0, soma_x_vezes_y = 0, soma_x_ao_quadrado = 0;
-
-    for (let i = 0; i < quantidade_de_meses; i++) {
-        soma_x += lista_de_meses[i];
-        soma_y += vendas_do_produto[i];
-        soma_x_vezes_y += lista_de_meses[i] * vendas_do_produto[i];
-        soma_x_ao_quadrado += lista_de_meses[i] * lista_de_meses[i];
+// 2. LAÇO PARA CALCULAR TUDO PARA CADA PRODUTO
+for (let p = 0; p < dadosVendas.length; p++) {
+    let produto = dadosVendas[p].produto;
+    let y = dadosVendas[p].y;
+    let n = y.length;
+    
+    // Criando o array x [1, 2, 3...] dinamicamente com base na quantidade de meses
+    let x = [];
+    for (let i = 1; i <= n; i++) {
+        x.push(i);
     }
 
-    let numerador_a = (quantidade_de_meses * soma_x_vezes_y) - (soma_x * soma_y);
-    let denominador_a = (quantidade_de_meses * soma_x_ao_quadrado) - (soma_x * soma_x);
-    let inclinacao_a = numerador_a / denominador_a;
-    let intercepto_b = (soma_y - (inclinacao_a * soma_x)) / quantidade_de_meses;
-
-    let media_y = soma_y / quantidade_de_meses;
-    let sq_total = 0, sq_residuo = 0;
-
-    for (let i = 0; i < quantidade_de_meses; i++) {
-        let previsao = (inclinacao_a * lista_de_meses[i]) + intercepto_b;
-        sq_total += Math.pow(vendas_do_produto[i] - media_y, 2);
-        sq_residuo += Math.pow(vendas_do_produto[i] - previsao, 2);
+    // --- CÁLCULO DOS SOMATÓRIOS ---
+    let somaX = 0, somaY = 0, somaXY = 0, somaX2 = 0;
+    for (let i = 0; i < n; i++) {
+        somaX += x[i];
+        somaY += y[i];
+        somaXY += (x[i] * y[i]);
+        somaX2 += (x[i] * x[i]);
     }
-    let r_quadrado = (1 - (sq_residuo / sq_total)) * 100;
 
-    for (let m = 1; m <= 15; m++) {
-        let valor_previsto = (inclinacao_a * m) + intercepto_b;
-        let valor_real = m <= 12 ? vendas_do_produto[m-1] : "-";
-        console.log(`| ${produto_atual.nome} | ${m} | ${valor_real} | ${valor_previsto.toFixed(2)} | ${r_quadrado.toFixed(2)}% |`);
+    // --- CÁLCULO DA EQUAÇÃO DA RETA (a e b) ---
+    let a = (n * somaXY - somaX * somaY) / (n * somaX2 - somaX * somaX);
+    let b = (somaY - a * somaX) / n;
+
+    // --- CÁLCULO DO R² ---
+    let mediaY = somaY / n;
+    let sqTotal = 0;
+    let sqRes = 0;
+
+    for (let i = 0; i < n; i++) {
+        let yEstimado = (a * x[i]) + b;
+        sqTotal += Math.pow(y[i] - mediaY, 2);
+        sqRes += Math.pow(y[i] - yEstimado, 2);
     }
     
-    console.log("\n### Resumo por Trimestre - " + produto_atual.nome);
-    console.log("| Trimestre | Meses | Total Previsto |");
-    console.log("| :--- | :---: | :---: |");
+    // Se sqTotal for 0 (como no caso do PVA que forma uma reta perfeita), evitamos dividir por zero
+    let r2 = (sqTotal === 0) ? 1.0 : 1 - (sqRes / sqTotal);
 
-    for (let t = 1; t <= 5; t++) {
-        let inicio = (t - 1) * 3 + 1;
-        let fim = t * 3;
-        let soma_trimestre = 0;
+    // --- PREVISÃO PARA OS PRÓXIMOS 3 MESES (13, 14, 15) ---
+    let prev13 = (a * 13) + b;
+    let prev14 = (a * 14) + b;
+    let prev15 = (a * 15) + b;
 
-        for (let m = inicio; m <= fim; m++) {
-            soma_trimestre += (inclinacao_a * m) + intercepto_b;
-        }
-        console.log(`| Q${t} | ${inicio}-${fim} | ${Math.round(soma_trimestre)} |`);
+    // --- AGRUPAMENTO POR TRIMESTRE (Somando as previsões da reta para os meses 1 a 15) ---
+    let t1 = 0, t2 = 0, t3 = 0, t4 = 0, t5 = 0;
+    
+    for (let mes = 1; mes <= 15; mes++) {
+        let vendaPrevista = (a * mes) + b; // Usando a reta para prever todos os meses
+        
+        if (mes <= 3) t1 += vendaPrevista;
+        else if (mes <= 6) t2 += vendaPrevista;
+        else if (mes <= 9) t3 += vendaPrevista;
+        else if (mes <= 12) t4 += vendaPrevista;
+        else t5 += vendaPrevista; // Trimestre futuro (13 a 15)
     }
-    console.log("\n---\n");
+
+    // --- EXIBINDO OS RESULTADOS ---
+    console.log(`📌 PRODUTO: ${produto}`);
+    console.log(`Equação da Reta: y = ${a.toFixed(2)}x + ${b.toFixed(2)}`);
+    console.log(`R² (Confiabilidade): ${r2.toFixed(4)}`);
+    console.log(`Previsão Futura: Mês 13: ${Math.round(prev13)} | Mês 14: ${Math.round(prev14)} | Mês 15: ${Math.round(prev15)}`);
+    console.log(`Trimestres Previstos:`);
+    console.log(` - T1 (Meses 1-3):   ${Math.round(t1)} un.`);
+    console.log(` - T2 (Meses 4-6):   ${Math.round(t2)} un.`);
+    console.log(` - T3 (Meses 7-9):   ${Math.round(t3)} un.`);
+    console.log(` - T4 (Meses 10-12): ${Math.round(t4)} un.`);
+    console.log(` - T5 (Meses 13-15): ${Math.round(t5)} un. (FUTURO)`);
+    console.log("--------------------------------------------------\n");
 }
