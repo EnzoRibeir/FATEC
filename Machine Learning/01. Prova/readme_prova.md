@@ -1,3 +1,5 @@
+## Resultado do Código:
+
 === RESULTADOS DA AVALIAÇÃO DE ML (REGRESSÃO LINEAR) ===
 
 📌 PRODUTO: Tinta Acrílica
